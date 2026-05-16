@@ -1,0 +1,1040 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Traffic — Operator Console</title>
+<style>
+/* ===== TOKENS ===== */
+:root {
+  /* Surfaces — tinted cream toward amber (hue 55) */
+  --surface:          oklch(97.5% 0.006 55);
+  --surface-card:     oklch(99.5% 0.003 55);
+  --surface-recessed: oklch(96%   0.008 55);
+
+  /* Ink */
+  --ink:           oklch(18%  0.012 55);
+  --ink-secondary: oklch(48%  0.008 55);
+  --ink-tertiary:  oklch(63%  0.006 55);
+
+  /* Borders */
+  --edge:        oklch(91%  0.009 55);
+  --edge-strong: oklch(85%  0.012 55);
+
+  /* Accent — warm amber */
+  --accent:         oklch(68%  0.17 55);
+  --accent-hover:   oklch(62%  0.18 55);
+  --accent-subtle:  oklch(97%  0.030 55);
+  --accent-subtle-border: oklch(92% 0.040 55);
+
+  /* Signal state (reserved — never use for chrome) */
+  --sig-green:         oklch(52%  0.16 145);
+  --sig-green-text:    oklch(99%  0.003 145);
+  --sig-yellow:        oklch(76%  0.16 78);
+  --sig-yellow-text:   oklch(18%  0.012 78);
+  --sig-red:           oklch(54%  0.22 22);
+  --sig-red-text:      oklch(99%  0.003 22);
+  --sig-unknown:       oklch(60%  0.006 55);
+  --sig-unknown-text:  oklch(99%  0.003 55);
+
+  /* Bezel housing */
+  --bezel:       oklch(26%  0.014 55);
+  --bezel-deep:  oklch(18%  0.010 55);
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.9375rem;  /* 15px */
+  --text-lg:   1.0625rem;  /* 17px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+
+  /* Spacing — 4pt base */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s8: 32px; --s10: 40px;
+
+  /* Radius */
+  --r-sm: 4px;
+  --r:    6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; font-optical-sizing: auto; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--surface);
+  min-height: 100vh;
+}
+button { font-family: inherit; cursor: pointer; }
+input  { font-family: inherit; }
+
+/* ===== EMERGENCY BANNER ===== */
+#emergency-banner {
+  padding: var(--s3) var(--s6);
+  text-align: center;
+  font-weight: 600;
+  font-size: var(--text-base);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#emergency-banner.hidden { display: none; }
+
+@keyframes emergencyFlash {
+  from { background: var(--sig-red);  color: oklch(99% 0.003 22); }
+  to   { background: oklch(62% 0.22 22); color: oklch(20% 0.018 22); }
+}
+#emergency-banner:not(.hidden) { animation: emergencyFlash 0.6s infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  #emergency-banner:not(.hidden) {
+    animation: none;
+    background: var(--sig-red);
+    color: oklch(99% 0.003 22);
+  }
+}
+
+/* ===== DASHBOARD SHELL ===== */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--s5) var(--s5) var(--s8);
+}
+
+/* Header */
+.dash-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--edge);
+  flex-wrap: wrap;
+}
+
+.dash-title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.dash-badge {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ink-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--surface-recessed);
+  border: 1px solid var(--edge);
+  border-radius: 100px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.dash-header-right { margin-left: auto; }
+
+/* Two-column main grid */
+.dash-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s4);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .dash-main { grid-template-columns: 1fr; }
+}
+
+/* ===== SIGNALS COLUMN ===== */
+.signals-col { display: flex; flex-direction: column; gap: var(--s3); }
+
+.signals-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+}
+
+/* Individual signal card */
+.signal-card {
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  padding: var(--s4) var(--s3) var(--s3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.signal-dir {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-tertiary);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.signal-housing {
+  width: 106px;
+  height: 106px;
+  background: var(--bezel);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 2px 6px oklch(10% 0.01 55 / 0.55),
+    0 1px 3px oklch(18% 0.012 55 / 0.10);
+}
+
+.light-circle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  transition: background-color 0.25s var(--ease-out);
+}
+
+.light-circle.GREEN   { background: var(--sig-green);   color: var(--sig-green-text); }
+.light-circle.YELLOW  { background: var(--sig-yellow);  color: var(--sig-yellow-text); }
+.light-circle.RED     { background: var(--sig-red);     color: var(--sig-red-text); }
+.light-circle.UNKNOWN { background: var(--sig-unknown); color: var(--sig-unknown-text); }
+
+.signal-queue-wrap { line-height: 1; text-align: center; }
+
+.signal-queue {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.signal-queue-unit {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ink-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.signal-timer {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-tertiary);
+  font-variant-numeric: tabular-nums;
+  min-height: 1.4em;
+}
+
+.signal-timer.timer-urgent  { color: var(--sig-red); }
+.signal-timer.timer-active  { color: var(--sig-green); }
+
+/* Map section */
+.map-section {
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  padding: var(--s3) var(--s3) var(--s2);
+}
+
+.section-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-tertiary);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+
+/* Status strip */
+.status-strip {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-lg);
+  background: var(--surface-recessed);
+  border: 1px solid var(--edge);
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+
+.status-item {
+  font-size: var(--text-xs);
+  color: var(--ink-tertiary);
+  white-space: nowrap;
+}
+
+.status-item span {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-secondary);
+}
+
+/* ===== CONSOLE COLUMN ===== */
+.console-col {
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  padding: var(--s5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.console-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+
+.console-hint {
+  font-size: var(--text-sm);
+  color: var(--ink-secondary);
+  line-height: 1.55;
+}
+
+
+/* Chat log */
+#chat-log {
+  flex: 1;
+  min-height: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: var(--s3);
+  background: var(--surface-recessed);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-lg);
+  scroll-behavior: smooth;
+}
+
+#chat-log::-webkit-scrollbar { width: 3px; }
+#chat-log::-webkit-scrollbar-track { background: transparent; }
+#chat-log::-webkit-scrollbar-thumb { background: var(--edge-strong); border-radius: 2px; }
+
+.chat-empty {
+  color: var(--ink-tertiary);
+  font-size: var(--text-sm);
+  text-align: center;
+  padding: var(--s8) var(--s4);
+  line-height: 1.7;
+}
+
+.msg { margin-bottom: var(--s3); }
+.msg:last-child { margin-bottom: 0; }
+
+.msg .who {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-tertiary);
+  margin-bottom: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bubble {
+  padding: var(--s2) var(--s3);
+  border-radius: 4px 10px 10px 10px;
+  white-space: pre-wrap;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.msg.user .who { text-align: end; }
+.msg.user .bubble {
+  background: oklch(96% 0.018 225);
+  border-radius: 10px 4px 10px 10px;
+  margin-inline-start: var(--s8);
+}
+
+.msg.assistant .bubble {
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  margin-inline-end: var(--s8);
+}
+
+.msg.tool .who { color: var(--accent); }
+.msg.tool .bubble {
+  background: var(--accent-subtle);
+  border: 1px solid var(--accent-subtle-border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.msg.alert .bubble {
+  background: oklch(97.5% 0.04 80);
+  border: 1px solid oklch(90% 0.06 80);
+}
+
+.reasoning-details {
+  margin-top: var(--s1);
+}
+.reasoning-details summary {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ink-tertiary);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  user-select: none;
+}
+.reasoning-details summary:hover { color: var(--ink-secondary); }
+.reasoning-details p {
+  margin: var(--s1) 0 0 var(--s3);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--ink-secondary);
+}
+
+/* Input row */
+.chat-input-row { display: flex; gap: var(--s2); }
+
+.chat-input-row input {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  border-radius: var(--r);
+  padding: var(--s2) var(--s3);
+  outline: none;
+  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+.chat-input-row input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px oklch(68% 0.17 55 / 0.18);
+}
+.chat-input-row input::placeholder { color: var(--ink-tertiary); }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--r);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background 0.15s var(--ease-out),
+    border-color 0.15s var(--ease-out),
+    box-shadow 0.15s var(--ease-out),
+    color 0.15s var(--ease-out);
+  padding: var(--s2) var(--s3);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px oklch(68% 0.17 55 / 0.35);
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+.btn-primary:hover:not(:disabled) { background: oklch(28% 0.015 55); }
+.btn-primary:active:not(:disabled) { background: oklch(22% 0.012 55); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-secondary);
+  border-color: var(--edge-strong);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-recessed);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.btn-sm { padding: 4px 8px; font-size: var(--text-xs); border-radius: var(--r-sm); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--sig-red);
+  border-color: var(--edge-strong);
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--sig-red);
+  border-color: var(--sig-red);
+  color: oklch(99% 0.003 22);
+}
+
+.btn-lang {
+  background: transparent;
+  color: var(--ink-secondary);
+  border-color: var(--edge);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+}
+.btn-lang:hover:not(:disabled) { border-color: var(--edge-strong); color: var(--ink); }
+
+.btn-voice {
+  background: transparent;
+  color: var(--ink-secondary);
+  border-color: var(--edge-strong);
+  min-width: 40px;
+}
+.btn-voice:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); }
+
+.btn-voice.voice-active {
+  background: var(--sig-red);
+  border-color: var(--sig-red);
+  color: oklch(99% 0.003 22);
+}
+
+@keyframes voicePulse {
+  0%   { box-shadow: 0 0 0 0   oklch(54% 0.22 22 / 0.5); }
+  70%  { box-shadow: 0 0 0 8px oklch(54% 0.22 22 / 0); }
+  100% { box-shadow: 0 0 0 0   oklch(54% 0.22 22 / 0); }
+}
+.btn-voice.listening { animation: voicePulse 1s infinite; }
+@media (prefers-reduced-motion: reduce) { .btn-voice.listening { animation: none; } }
+
+/* ===== CHART STRIP ===== */
+.chart-strip {
+  margin-top: var(--s4);
+  background: var(--surface-card);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  padding: var(--s4) var(--s5);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s3);
+}
+
+.chart-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-tertiary);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--s4);
+  font-size: var(--text-xs);
+  color: var(--ink-secondary);
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.chart-swatch {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Emergency banner — hidden until emergency_priority fires -->
+<div id="emergency-banner" class="hidden" role="alert">
+  🚨 EMERGENCY VEHICLE PRE-EMPTION ACTIVE 🚨
+</div>
+
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="dash-header">
+    <h1 class="dash-title" id="page-title">Smart Traffic</h1>
+    <div class="dash-header-right">
+      <button id="lang-btn" class="btn btn-lang">AR</button>
+    </div>
+  </header>
+
+  <!-- Main grid -->
+  <div class="dash-main">
+
+    <!-- Left: signals, map, status -->
+    <div class="signals-col">
+
+      <!-- Signal cards -->
+      <div class="signals-row">
+        <article class="signal-card">
+          <p class="signal-dir">West-East</p>
+          <div class="signal-housing">
+            <div id="stateWE" class="light-circle UNKNOWN">WE</div>
+          </div>
+          <div class="signal-queue-wrap">
+            <p id="queueWE" class="signal-queue">--</p>
+            <p class="signal-queue-unit">cars</p>
+          </div>
+          <p id="timerWE" class="signal-timer">--</p>
+        </article>
+        <article class="signal-card">
+          <p class="signal-dir">East-West</p>
+          <div class="signal-housing">
+            <div id="stateEW" class="light-circle UNKNOWN">EW</div>
+          </div>
+          <div class="signal-queue-wrap">
+            <p id="queueEW" class="signal-queue">--</p>
+            <p class="signal-queue-unit">cars</p>
+          </div>
+          <p id="timerEW" class="signal-timer">--</p>
+        </article>
+      </div>
+
+      <!-- Intersection map -->
+      <div class="map-section">
+        <p class="section-label">Intersection View</p>
+        <canvas id="traffic-map" width="340" height="155"
+                style="max-width:100%; display:block; margin:0 auto; border-radius:4px;"></canvas>
+      </div>
+
+      <!-- Status strip -->
+      <div class="status-strip">
+        <span class="status-item">Updated <span id="lastUpdate">--</span></span>
+        <span class="status-item">Last override: <span id="lastOverride">none</span></span>
+      </div>
+
+    </div>
+
+    <!-- Right: operator console -->
+    <div class="console-col">
+      <div>
+        <h2 class="console-title" id="chat-card-title">Operator Console</h2>
+        <p class="console-hint" id="chat-hint">
+          Try: "which direction is busier?", "give priority to WE for 10 seconds", "ambulance approaching from EW in 15 seconds"
+        </p>
+      </div>
+
+      <!-- Chat log -->
+      <div id="chat-log">
+        <p class="chat-empty" id="chat-empty-hint">
+          Type a command or press the mic.<br>
+          Try: give priority to WE for 10 seconds.
+        </p>
+      </div>
+
+      <!-- Input row -->
+      <div class="chat-input-row">
+        <input id="chat-input" type="text"
+               placeholder="Type a question or command..." autocomplete="off" />
+        <button id="voice-btn" class="btn btn-voice" title="Voice input"><img id="voice-icon" src="/static/sound-recognition.png" alt="Voice input" style="width:18px;height:18px;display:block;pointer-events:none;" /></button>
+        <button id="chat-send" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Full-width chart -->
+  <div class="chart-strip">
+    <div class="chart-header">
+      <p class="chart-title">Queue History — last 60 updates</p>
+      <div class="chart-legend">
+        <span class="chart-legend-item">
+          <span class="chart-swatch" style="background: oklch(68% 0.17 55);"></span>WE
+        </span>
+        <span class="chart-legend-item">
+          <span class="chart-swatch" style="background: oklch(56% 0.14 220);"></span>EW
+        </span>
+      </div>
+    </div>
+    <div style="position:relative; height:110px;">
+      <canvas id="queue-chart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+  // ===== COLOR CONSTANTS (hex approx of OKLCH tokens) =====
+  const C = {
+    sigGreen:    "#1c7d3c",   // oklch(52% 0.16 145)
+    sigYellow:   "#c49016",   // oklch(76% 0.16 78)
+    sigRed:      "#cb3421",   // oklch(54% 0.22 22)
+    sigUnknown:  "#8a8278",   // oklch(60% 0.006 55)
+    ink:         "#282018",   // oklch(18% 0.012 55)
+    inkSecondary:"#786e64",   // oklch(48% 0.008 55)
+    inkTertiary: "#9e9690",   // oklch(63% 0.006 55)
+    accent:      "#c68420",   // oklch(68% 0.17 55)
+    chartWE:     "#c68420",   // amber — WE line
+    chartEW:     "#3878be",   // cool blue — EW line
+  };
+
+  // ===== LIVE STATE =====
+  let stateWE = "UNKNOWN", stateEW = "UNKNOWN";
+  let qWE = 0, qEW = 0;
+
+  // ===== MQTT =====
+  const client = mqtt.connect("wss://broker.hivemq.com:8884/mqtt");
+  client.on("connect", () => {
+    ["WE/state","EW/state","WE/queue","EW/queue","override","phase"].forEach(t =>
+      client.subscribe("iot/traffic/" + t));
+  });
+
+  let phaseEndsAt = 0, phaseDirection = "";
+
+  function renderTimers() {
+    const now = Date.now(), remaining = Math.max(0, phaseEndsAt - now);
+    const s = (remaining / 1000).toFixed(1);
+    const we = document.getElementById("timerWE"), ew = document.getElementById("timerEW");
+    if (phaseDirection === "WE" && remaining > 0) {
+      we.textContent = "Green ends " + s + "s";
+      we.className = "signal-timer" + (remaining < 3000 ? " timer-urgent" : " timer-active");
+      ew.textContent = "Waiting";
+      ew.className = "signal-timer";
+    } else if (phaseDirection === "EW" && remaining > 0) {
+      ew.textContent = "Green ends " + s + "s";
+      ew.className = "signal-timer" + (remaining < 3000 ? " timer-urgent" : " timer-active");
+      we.textContent = "Waiting";
+      we.className = "signal-timer";
+    } else {
+      we.textContent = ew.textContent = "--";
+      we.className = ew.className = "signal-timer";
+    }
+  }
+  setInterval(renderTimers, 100);
+
+  client.on("message", (topic, message) => {
+    const val = message.toString();
+    if (topic.endsWith("WE/state")) { stateWE = val; setLight("stateWE", val); drawMap(); }
+    if (topic.endsWith("EW/state")) { stateEW = val; setLight("stateEW", val); drawMap(); }
+    if (topic.endsWith("WE/queue")) {
+      qWE = parseInt(val) || 0;
+      document.getElementById("queueWE").textContent = qWE;
+      pushChart(qWE, qEW); drawMap();
+    }
+    if (topic.endsWith("EW/queue")) {
+      qEW = parseInt(val) || 0;
+      document.getElementById("queueEW").textContent = qEW;
+      pushChart(qWE, qEW); drawMap();
+    }
+    if (topic === "iot/traffic/override") {
+      document.getElementById("lastOverride").textContent = val + " (" + new Date().toLocaleTimeString() + ")";
+    }
+    document.getElementById("lastUpdate").textContent = new Date().toLocaleTimeString();
+    if (topic === "iot/traffic/phase") {
+      try { const d = JSON.parse(val); phaseEndsAt = Date.now() + d.remaining_ms; phaseDirection = d.direction; }
+      catch (_) {}
+    }
+  });
+
+  function setLight(elemId, val) {
+    const el = document.getElementById(elemId);
+    el.textContent = val; el.className = "light-circle " + val;
+  }
+
+  // ===== INTERSECTION MAP =====
+  const mapCanvas = document.getElementById("traffic-map");
+  const ctx = mapCanvas.getContext("2d");
+  const CW = mapCanvas.width, CH = mapCanvas.height, CX = CW / 2, CY = CH / 2;
+  const ROAD_HALF = 22;
+  const MAP_COLORS = { GREEN: C.sigGreen, YELLOW: C.sigYellow, RED: C.sigRed, UNKNOWN: C.sigUnknown };
+
+  function drawMap() {
+    ctx.clearRect(0, 0, CW, CH);
+    // Ground
+    ctx.fillStyle = "#d2e4c8"; ctx.fillRect(0, 0, CW, CH);
+    // Roads
+    ctx.fillStyle = "#56504c";
+    ctx.fillRect(0, CY - ROAD_HALF, CW, ROAD_HALF * 2);
+    ctx.fillRect(CX - ROAD_HALF, 0, ROAD_HALF * 2, CH);
+    // Intersection box
+    ctx.fillStyle = "#65605a";
+    ctx.fillRect(CX - ROAD_HALF, CY - ROAD_HALF, ROAD_HALF * 2, ROAD_HALF * 2);
+    // Dashed centre lines
+    ctx.setLineDash([9, 7]); ctx.strokeStyle = "rgba(255,255,255,0.38)"; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, CY); ctx.lineTo(CX - ROAD_HALF, CY);
+    ctx.moveTo(CX + ROAD_HALF, CY); ctx.lineTo(CW, CY);
+    ctx.moveTo(CX, 0); ctx.lineTo(CX, CY - ROAD_HALF);
+    ctx.moveTo(CX, CY + ROAD_HALF); ctx.lineTo(CX, CH);
+    ctx.stroke(); ctx.setLineDash([]);
+    // Direction labels
+    ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "600 9px system-ui, sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("WE →", 58, CY + 3); ctx.fillText("← EW", CW - 58, CY + 3);
+    // WE queue cars
+    const cW = 18, cH = 11;
+    const weColor = stateWE === "GREEN" ? "#7dd9a2" : "#f8a4a0";
+    for (let i = 0; i < 6; i++) {
+      const x = CX - ROAD_HALF - 12 - i * 24 - cW, y = CY - cH / 2 - 4;
+      ctx.fillStyle = i < qWE ? weColor : "transparent";
+      ctx.strokeStyle = i < qWE ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.18)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(x, y, cW, cH, 3); ctx.fill(); ctx.stroke();
+    }
+    // EW queue cars — RIGHT side of horizontal road (east approach, going west)
+    // Mirror of WE: start just right of intersection and step further right.
+    // y is offset below center so EW occupies the opposing lane from WE.
+    const ewColor = stateEW === "GREEN" ? "#7dd9a2" : "#f8a4a0";
+    for (let i = 0; i < 6; i++) {
+      const x = CX + ROAD_HALF + 12 + i * 24;
+      const y = CY + 4;
+      if (x + cW > CW) break;
+      ctx.fillStyle = i < qEW ? ewColor : "transparent";
+      ctx.strokeStyle = i < qEW ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.18)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(x, y, cW, cH, 3); ctx.fill(); ctx.stroke();
+    }
+    // Signal indicators — both on top corners of the intersection
+    drawSignal(CX - ROAD_HALF - 2, CY - ROAD_HALF - 2, stateWE, "WE");
+    drawSignal(CX + ROAD_HALF + 2, CY - ROAD_HALF - 2, stateEW, "EW");
+    // Queue count badges
+    ctx.fillStyle = "rgba(0,0,0,0.55)"; ctx.font = "600 9px system-ui, sans-serif";
+    ctx.textAlign = "left"; ctx.fillText("WE " + qWE, 5, 12);
+    ctx.textAlign = "right"; ctx.fillText("EW " + qEW, CW - 5, 12);
+  }
+
+  function drawSignal(ax, ay, state, label) {
+    const r = 9;
+    const cx = ax < CX ? ax - r - 2 : ax + r + 2;
+    const cy = ay < CY ? ay - r - 2 : ay + r + 2;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fillStyle = MAP_COLORS[state] || MAP_COLORS.UNKNOWN; ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.7)"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = "#fdfcf8"; ctx.font = "600 8px system-ui, sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(label, cx, cy + 3);
+  }
+
+  drawMap();
+
+  // ===== CHART =====
+  const CHART_MAX = 60;
+  const chartLabels = Array(CHART_MAX).fill("");
+  const chartWE = Array(CHART_MAX).fill(null);
+  const chartEW = Array(CHART_MAX).fill(null);
+
+  const queueChart = new Chart(document.getElementById("queue-chart"), {
+    type: "line",
+    data: {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: "WE",
+          data: chartWE,
+          borderColor: C.chartWE,
+          backgroundColor: "rgba(198,132,32,0.08)",
+          borderWidth: 2, tension: 0.3, pointRadius: 0, fill: true,
+        },
+        {
+          label: "EW",
+          data: chartEW,
+          borderColor: C.chartEW,
+          backgroundColor: "rgba(56,120,190,0.08)",
+          borderWidth: 2, tension: 0.3, pointRadius: 0, fill: true,
+        },
+      ]
+    },
+    options: {
+      animation: false,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          display: true,
+          ticks: { maxTicksLimit: 6, font: { size: 10, family: "ui-monospace, monospace" }, color: C.inkTertiary, maxRotation: 0 },
+          grid: { display: false },
+        },
+        y: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2, font: { size: 10, family: "ui-monospace, monospace" }, color: C.inkTertiary },
+          grid: { color: "rgba(220,214,206,0.85)" },
+        }
+      }
+    }
+  });
+
+  function pushChart(we, ew) {
+    chartLabels.push(new Date().toLocaleTimeString());
+    chartWE.push(we); chartEW.push(ew);
+    if (chartLabels.length > CHART_MAX) { chartLabels.shift(); chartWE.shift(); chartEW.shift(); }
+    queueChart.update("none");
+  }
+
+  // ===== CHAT =====
+  const log     = document.getElementById("chat-log");
+  const inputEl = document.getElementById("chat-input");
+  const sendBtn = document.getElementById("chat-send");
+
+  function append(who, text, cls = "", reasoning = "") {
+    const hint = document.getElementById("chat-empty-hint");
+    if (hint) hint.remove();
+
+    const wrap = document.createElement("div");
+    wrap.className = "msg " + cls;
+
+    const whoEl = document.createElement("div");
+    whoEl.className = "who";
+    whoEl.textContent = who;
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = text;
+
+    wrap.appendChild(whoEl);
+    wrap.appendChild(bubble);
+
+    if (reasoning && cls === "assistant") {
+      const details = document.createElement("details");
+      details.className = "reasoning-details";
+      const summary = document.createElement("summary");
+      summary.textContent = "Why?";
+      const p = document.createElement("p");
+      p.textContent = reasoning;
+      details.appendChild(summary); details.appendChild(p);
+      wrap.appendChild(details);
+    }
+
+    log.appendChild(wrap);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  async function send() {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    append("You", text, "user");
+    inputEl.value = "";
+    sendBtn.disabled = true;
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+      if (data.tool_used) append("Action", JSON.stringify(data.tool_used.input, null, 2), "tool");
+      append("Claude", data.reply, "assistant", data.reasoning || "");
+      if (data.emergency) {
+        const banner = document.getElementById("emergency-banner");
+        banner.classList.remove("hidden");
+        const ms = data.published?.duration_ms || 15000;
+        setTimeout(() => banner.classList.add("hidden"), ms + 1500);
+      }
+    } catch (e) {
+      append("Claude", "Error: " + e.message, "assistant");
+    } finally {
+      sendBtn.disabled = false; inputEl.focus();
+    }
+  }
+
+  sendBtn.addEventListener("click", send);
+  inputEl.addEventListener("keydown", e => { if (e.key === "Enter") send(); });
+
+  // ===== PROACTIVE ALERT POLLING =====
+  async function pollAlerts() {
+    try {
+      const res = await fetch("/api/alerts");
+      const data = await res.json();
+      (data.alerts || []).forEach(a => append("System", a.text, "alert"));
+    } catch (_) {}
+  }
+  setInterval(pollAlerts, 5000);
+
+  // ===== QUEUE CONTROLS =====
+  // ===== VOICE INPUT =====
+  const voiceBtn = document.getElementById("voice-btn");
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition;
+
+  if (!SpeechRecognition) {
+    voiceBtn.style.display = "none";
+  } else {
+    recognition = new SpeechRecognition();
+    recognition.interimResults = false; recognition.maxAlternatives = 1;
+    let listening = false;
+
+    function setVoiceIdle() {
+      listening = false;
+      voiceBtn.classList.remove("voice-active", "listening");
+      voiceBtn.innerHTML = '<img id="voice-icon" src="/static/sound-recognition.png" alt="Voice input" style="width:18px;height:18px;display:block;pointer-events:none;" />';
+    }
+
+    recognition.onresult = e => { inputEl.value = e.results[0][0].transcript; send(); };
+    recognition.onerror = recognition.onend = setVoiceIdle;
+
+    voiceBtn.addEventListener("click", () => {
+      if (listening) { recognition.abort(); }
+      else {
+        listening = true;
+        voiceBtn.classList.add("voice-active", "listening");
+        voiceBtn.textContent = "⏹";
+        recognition.start();
+      }
+    });
+  }
+
+  // ===== ARABIC / LANGUAGE TOGGLE =====
+  const STRINGS = {
+    en: {
+      title:       "Smart Traffic",
+      console:     "Operator Console",
+      hint:        'Try: "which direction is busier?", "give priority to WE for 10 seconds", "ambulance approaching from EW in 15 seconds"',
+      placeholder: "Type a question or command...",
+      send:        "Send",
+      dir:         "ltr",
+    },
+    ar: {
+      title:       "المرور الذكي",
+      console:     "وحدة تحكم المشغل",
+      hint:        'جرب: "أي اتجاه أكثر ازدحاماً؟"، "أعطِ الأولوية لـ WE لمدة 10 ثوانٍ"، "سيارة إسعاف تقترب من EW"',
+      placeholder: "اكتب سؤالاً أو أمراً...",
+      send:        "إرسال",
+      dir:         "rtl",
+    }
+  };
+
+  let currentLang = localStorage.getItem("traffic-lang") || "en";
+
+  function applyLang(lang) {
+    const s = STRINGS[lang];
+    document.getElementById("page-title").textContent       = s.title;
+    document.getElementById("chat-card-title").textContent  = s.console;
+    document.getElementById("chat-hint").textContent        = s.hint;
+    inputEl.placeholder                                      = s.placeholder;
+    sendBtn.textContent                                      = s.send;
+    document.getElementById("lang-btn").textContent         = lang === "en" ? "AR" : "EN";
+    document.getElementById("chat-log").dir                 = s.dir;
+    if (recognition) recognition.lang = lang === "ar" ? "ar-SA" : "en-US";
+    document.documentElement.lang                           = lang;
+    localStorage.setItem("traffic-lang", lang);
+    currentLang = lang;
+  }
+
+  document.getElementById("lang-btn").addEventListener("click", () => {
+    applyLang(currentLang === "en" ? "ar" : "en");
+  });
+
+  applyLang(currentLang);
+</script>
+</body>
+</html>
