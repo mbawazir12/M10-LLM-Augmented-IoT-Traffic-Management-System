@@ -513,13 +513,13 @@ def api_chat(req: ChatRequest):
 
 @app.get("/")
 def root():
-    return FileResponse(os.path.join(os.path.dirname(__file__), "static", "dashboard.html"))
+    return FileResponse(os.path.join(os.path.dirname(__file__), "..", "frontend", "dashboard.html"))
 
 
 # Static files served at /static (the existing dashboard, with the chat panel added).
 app.mount(
     "/static",
-    StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")),
+    StaticFiles(directory=os.path.join(os.path.dirname(__file__), "..", "frontend")),
     name="static",
 )
 

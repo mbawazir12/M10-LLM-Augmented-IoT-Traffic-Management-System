@@ -12,8 +12,9 @@ firmware/
 
 backend/
   bridge.py               Python bridge: MQTT client + Claude tool-use + FastAPI server
-  static/
-    dashboard.html        Live dashboard with signal cards and chat panel
+
+frontend/
+  dashboard.html          Live dashboard with signal cards and chat panel
 
 requirements.txt          Python dependencies
 .env.example              Copy to .env and fill in your API key

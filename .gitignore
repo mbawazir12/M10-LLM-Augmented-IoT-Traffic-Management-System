@@ -14,6 +14,10 @@ __pycache__/
 # Evaluation outputs (generated, not source)
 
 
+# Claude Code workflow artifacts
+.claude/
+skills-lock.json
+
 # OS
 .DS_Store
 Thumbs.db

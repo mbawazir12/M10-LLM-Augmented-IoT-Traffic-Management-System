@@ -22,7 +22,7 @@ import requests
 import baseline as bl
 
 BRIDGE_URL = os.getenv("BRIDGE_URL", "http://localhost:8000").rstrip("/")
-DATASET_PATH = os.path.join(os.path.dirname(__file__), "dataset.json")
+DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "dataset.json")
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "results.csv")
 INJECT_SETTLE_S = 0.4  # seconds to wait after injecting state
 
