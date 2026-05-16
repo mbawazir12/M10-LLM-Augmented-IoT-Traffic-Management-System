@@ -1,1 +1,21 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Environment / secrets
 .env
+
+# Evaluation outputs (generated, not source)
+evaluation/results.csv
+evaluation/RESULTS.md
+evaluation/plots/
+
+# OS
+.DS_Store
+Thumbs.db

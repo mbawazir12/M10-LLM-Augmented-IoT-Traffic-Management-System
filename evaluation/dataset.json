@@ -1,0 +1,1367 @@
+[
+  {
+    "case_id": "cmd_001",
+    "category": "command",
+    "utterance": "Extend the WE green for 8 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 7000,
+      "duration_ms_max": 9000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_002",
+    "category": "command",
+    "utterance": "Give west-east an extra 10 seconds of green.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 9000,
+      "duration_ms_max": 11000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_003",
+    "category": "command",
+    "utterance": "Can you extend the WE green light for 12 seconds?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 11000,
+      "duration_ms_max": 13000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_004",
+    "category": "command",
+    "utterance": "WE needs more green time, add 6 seconds please.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 5000,
+      "duration_ms_max": 7000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_005",
+    "category": "command",
+    "utterance": "Extend green on the westbound direction by 5s.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 4000,
+      "duration_ms_max": 6000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_006",
+    "category": "command",
+    "utterance": "Please give west to east 15 more seconds of green.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 14000,
+      "duration_ms_max": 16000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_007",
+    "category": "command",
+    "utterance": "Extened the west-east phase for ten seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "WE",
+      "duration_ms_min": 8500,
+      "duration_ms_max": 11500,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_008",
+    "category": "command",
+    "utterance": "Extend EW green for 10 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 9000,
+      "duration_ms_max": 11000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_009",
+    "category": "command",
+    "utterance": "Give the east-west direction 8 more seconds of green.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 7000,
+      "duration_ms_max": 9000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_010",
+    "category": "command",
+    "utterance": "Can you extend east-west green by 12 seconds?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 11000,
+      "duration_ms_max": 13000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_011",
+    "category": "command",
+    "utterance": "EW needs 6 more seconds, can you do that?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 5000,
+      "duration_ms_max": 7000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_012",
+    "category": "command",
+    "utterance": "Add 8 seconds to the EW green please.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 7000,
+      "duration_ms_max": 9000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_013",
+    "category": "command",
+    "utterance": "Extend the eastbound green for five seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "extend_green",
+      "direction": "EW",
+      "duration_ms_min": 4000,
+      "duration_ms_max": 6000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_014",
+    "category": "command",
+    "utterance": "Force WE green now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_015",
+    "category": "command",
+    "utterance": "Switch to west-east immediately.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_016",
+    "category": "command",
+    "utterance": "Give WE the green right now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_017",
+    "category": "command",
+    "utterance": "Immediately switch to WE, it's backed up.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_018",
+    "category": "command",
+    "utterance": "Make west-east go green right now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_019",
+    "category": "command",
+    "utterance": "Force EW green.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_020",
+    "category": "command",
+    "utterance": "Switch to east-west now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_021",
+    "category": "command",
+    "utterance": "Give EW green immediately.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_022",
+    "category": "command",
+    "utterance": "Swith EW to green now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_023",
+    "category": "command",
+    "utterance": "Switch the lights so EW is green right now.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "force_phase",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_024",
+    "category": "command",
+    "utterance": "Give WE priority.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_025",
+    "category": "command",
+    "utterance": "Prioritize the west-east direction.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_026",
+    "category": "command",
+    "utterance": "Set WE as priority for 15 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "WE",
+      "duration_ms_min": 13000,
+      "duration_ms_max": 17000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_027",
+    "category": "command",
+    "utterance": "Hold WE green, it's congested.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_028",
+    "category": "command",
+    "utterance": "Give priority to the busier direction.",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "5"},
+      {"topic": "iot/traffic/EW/queue", "value": "2"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "WE",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_029",
+    "category": "command",
+    "utterance": "Give EW priority.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_030",
+    "category": "command",
+    "utterance": "Prioritize east-west direction.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_031",
+    "category": "command",
+    "utterance": "Set EW as priority.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_032",
+    "category": "command",
+    "utterance": "Prioritize whichever lane is more congested right now.",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "1"},
+      {"topic": "iot/traffic/EW/queue", "value": "6"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "set_priority",
+      "direction": "EW",
+      "duration_ms_min": 1000,
+      "duration_ms_max": 20000,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_033",
+    "category": "command",
+    "utterance": "Reset to normal.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "reset",
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_034",
+    "category": "command",
+    "utterance": "Clear the override.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "reset",
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_035",
+    "category": "command",
+    "utterance": "Go back to adaptive timing.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "reset",
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_036",
+    "category": "command",
+    "utterance": "Resume normal operation.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "reset",
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_037",
+    "category": "command",
+    "utterance": "Cancel the current override.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "traffic_override",
+      "action": "reset",
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "cmd_038",
+    "category": "command",
+    "utterance": "Ambulance approaching from WE, hold green for 20 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "emergency_priority",
+      "action": null,
+      "direction": "WE",
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": 17,
+      "eta_seconds_max": 23
+    }
+  },
+  {
+    "case_id": "cmd_039",
+    "category": "command",
+    "utterance": "Fire truck on EW, clear the path for 15 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "emergency_priority",
+      "action": null,
+      "direction": "EW",
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": 12,
+      "eta_seconds_max": 18
+    }
+  },
+  {
+    "case_id": "cmd_040",
+    "category": "command",
+    "utterance": "Emergency vehicle approaching from west-east, pre-empt for 25 seconds.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": true,
+      "tool_name": "emergency_priority",
+      "action": null,
+      "direction": "WE",
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": 22,
+      "eta_seconds_max": 30
+    }
+  },
+  {
+    "case_id": "amb_001",
+    "category": "ambiguous",
+    "utterance": "Can you fix the traffic?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_002",
+    "category": "ambiguous",
+    "utterance": "Make it better.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_003",
+    "category": "ambiguous",
+    "utterance": "The lights seem off.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_004",
+    "category": "ambiguous",
+    "utterance": "Extend the green.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_005",
+    "category": "ambiguous",
+    "utterance": "Give it more time.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_006",
+    "category": "ambiguous",
+    "utterance": "Switch the light.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_007",
+    "category": "ambiguous",
+    "utterance": "Priority.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_008",
+    "category": "ambiguous",
+    "utterance": "Do something about the wait time.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_009",
+    "category": "ambiguous",
+    "utterance": "Adjust the timing.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_010",
+    "category": "ambiguous",
+    "utterance": "The intersection needs attention.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_011",
+    "category": "ambiguous",
+    "utterance": "Increase the green duration.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_012",
+    "category": "ambiguous",
+    "utterance": "Hold it longer.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_013",
+    "category": "ambiguous",
+    "utterance": "Override something.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_014",
+    "category": "ambiguous",
+    "utterance": "Change the signals.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "amb_015",
+    "category": "ambiguous",
+    "utterance": "Make the green light longer.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_001",
+    "category": "out_of_scope",
+    "utterance": "What's the weather like today?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_002",
+    "category": "out_of_scope",
+    "utterance": "Open the parking garage gate.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_003",
+    "category": "out_of_scope",
+    "utterance": "Can you play some music?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_004",
+    "category": "out_of_scope",
+    "utterance": "What is 2 plus 2?",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_005",
+    "category": "out_of_scope",
+    "utterance": "Translate hello to Arabic.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_006",
+    "category": "out_of_scope",
+    "utterance": "Turn off all the traffic lights permanently.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_007",
+    "category": "out_of_scope",
+    "utterance": "Give me the admin password for the system.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_008",
+    "category": "out_of_scope",
+    "utterance": "Control the traffic lights on the highway.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_009",
+    "category": "out_of_scope",
+    "utterance": "Send an email to the traffic department.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "oos_010",
+    "category": "out_of_scope",
+    "utterance": "Delete all sensor data from the system.",
+    "inject": null,
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_001",
+    "category": "reporting",
+    "utterance": "Which direction has more traffic right now?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "3"},
+      {"topic": "iot/traffic/EW/queue", "value": "7"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_002",
+    "category": "reporting",
+    "utterance": "What is the current queue count on WE?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "4"},
+      {"topic": "iot/traffic/EW/queue", "value": "1"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_003",
+    "category": "reporting",
+    "utterance": "Is EW currently green?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "2"},
+      {"topic": "iot/traffic/EW/queue", "value": "0"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_004",
+    "category": "reporting",
+    "utterance": "How many cars are waiting on EW?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "0"},
+      {"topic": "iot/traffic/EW/queue", "value": "5"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_005",
+    "category": "reporting",
+    "utterance": "What's the traffic situation right now?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "2"},
+      {"topic": "iot/traffic/EW/queue", "value": "4"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_006",
+    "category": "reporting",
+    "utterance": "Which direction is green right now?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "1"},
+      {"topic": "iot/traffic/EW/queue", "value": "3"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_007",
+    "category": "reporting",
+    "utterance": "Is there any congestion at the intersection?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "6"},
+      {"topic": "iot/traffic/EW/queue", "value": "1"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_008",
+    "category": "reporting",
+    "utterance": "Tell me the current queue count on WE.",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "2"},
+      {"topic": "iot/traffic/EW/queue", "value": "0"},
+      {"topic": "iot/traffic/WE/state", "value": "YELLOW"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_009",
+    "category": "reporting",
+    "utterance": "Give me a full status report on the intersection.",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "3"},
+      {"topic": "iot/traffic/EW/queue", "value": "2"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_010",
+    "category": "reporting",
+    "utterance": "Which direction is busier?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "1"},
+      {"topic": "iot/traffic/EW/queue", "value": "4"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_011",
+    "category": "reporting",
+    "utterance": "Is WE congested right now?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "7"},
+      {"topic": "iot/traffic/EW/queue", "value": "0"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_012",
+    "category": "reporting",
+    "utterance": "How many vehicles are waiting in total?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "3"},
+      {"topic": "iot/traffic/EW/queue", "value": "5"},
+      {"topic": "iot/traffic/WE/state", "value": "RED"},
+      {"topic": "iot/traffic/EW/state", "value": "GREEN"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_013",
+    "category": "reporting",
+    "utterance": "What state is the WE signal in?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "1"},
+      {"topic": "iot/traffic/EW/queue", "value": "2"},
+      {"topic": "iot/traffic/WE/state", "value": "YELLOW"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_014",
+    "category": "reporting",
+    "utterance": "Is there traffic on the east-west side?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "0"},
+      {"topic": "iot/traffic/EW/queue", "value": "3"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  },
+  {
+    "case_id": "rep_015",
+    "category": "reporting",
+    "utterance": "Which lane should I be monitoring right now?",
+    "inject": [
+      {"topic": "iot/traffic/WE/queue", "value": "5"},
+      {"topic": "iot/traffic/EW/queue", "value": "2"},
+      {"topic": "iot/traffic/WE/state", "value": "GREEN"},
+      {"topic": "iot/traffic/EW/state", "value": "RED"}
+    ],
+    "ground_truth": {
+      "expects_tool_call": false,
+      "tool_name": null,
+      "action": null,
+      "direction": null,
+      "duration_ms_min": null,
+      "duration_ms_max": null,
+      "eta_seconds_min": null,
+      "eta_seconds_max": null
+    }
+  }
+]
