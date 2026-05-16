@@ -12,9 +12,7 @@ __pycache__/
 .env
 
 # Evaluation outputs (generated, not source)
-evaluation/results.csv
-evaluation/RESULTS.md
-evaluation/plots/
+
 
 # OS
 .DS_Store

@@ -57,7 +57,7 @@ The bridge is **overlay-only**. It cannot break adaptive timing: the firmware en
 
 ## Setup
 
-### 1. Get a Closed Sourse API key (i.e. Claude,GPT,Gemini)
+### 1. Get a Closed Source API key (i.e. Claude, GPT, Gemini)
 
 
 
