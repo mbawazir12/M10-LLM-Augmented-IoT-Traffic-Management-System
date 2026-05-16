@@ -10,7 +10,7 @@ An ESP32-based adaptive traffic intersection augmented with a Claude language mo
 firmware/
   smart_traffic.ino       ESP32 firmware — adaptive timing + override logic
 
-bridge/
+backend/
   bridge.py               Python bridge: MQTT client + Claude tool-use + FastAPI server
   static/
     dashboard.html        Live dashboard with signal cards and chat panel
@@ -31,7 +31,7 @@ CLAUDE.md                 Developer reference for Claude Code
         ▼
 [HiveMQ public broker  (broker.hivemq.com:1883)]
         ▼
-[bridge/bridge.py  —  FastAPI + paho-mqtt]
+[backend/bridge.py  —  FastAPI + paho-mqtt]
         │  rolling 60 s state window
         │  proactive congestion alerts
         ▼
@@ -95,7 +95,7 @@ Open `firmware/smart_traffic.ino` in the Arduino IDE. Install the **ArduinoJson 
 2. Start the bridge:
 
 ```bash
-cd bridge
+cd backend
 python bridge.py
 ```
 
