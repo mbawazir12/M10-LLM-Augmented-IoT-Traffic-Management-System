@@ -12,6 +12,8 @@ firmware/
 
 backend/
   bridge.py               Python bridge: MQTT client + Claude tool-use + FastAPI server
+model.py                 Evaluation script derived from notebooks
+tests/test_model.py      Unit test for the notebook-derived model script
 
 frontend/
   dashboard.html          Live dashboard with signal cards and chat panel
@@ -103,6 +105,8 @@ python bridge.py
 3. Open **http://localhost:8000** in a browser.
 
 The dashboard shows live signal states and queue counts for both directions (WE and EW). The chat panel on the right accepts natural-language commands and questions.
+
+> Demo note: The system was demonstrated in class, and the physical hardware was validated in the supervisor's office.
 
 ---
 
