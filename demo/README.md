@@ -1,5 +1,7 @@
 ## demo/
 
-This folder holds the project demo video.
-If the video file exceeds GitHub's 100 MB limit, add a markdown file here with a YouTube or Google Drive link instead.
-The demo should show the bridge dashboard, live chat interaction with Claude, and traffic override behaviour on the ESP32.
+The system was demonstrated live in class on May 17, 2026.
+Physical hardware (ESP32 + sensors + LEDs) was validated in Prof. Nidal Nasser's office.
+
+If a demo video is available, place it here. If the file exceeds GitHub's 100 MB limit,
+add a markdown file with the YouTube or Google Drive link instead.

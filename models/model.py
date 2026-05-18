@@ -9,7 +9,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-RESULTS_CSV = Path(__file__).resolve().parent / 'evaluation' / 'results.csv'
+RESULTS_CSV = Path(__file__).resolve().parent.parent / 'evaluation' / 'results.csv'
 
 CATEGORIES = ['command', 'ambiguous', 'out_of_scope', 'reporting']
 CAT_LABELS = {
@@ -18,6 +18,9 @@ CAT_LABELS = {
     'out_of_scope': 'Out-of-Scope',
     'reporting':    'Reporting',
 }
+
+VALID_ACTIONS    = {'extend_green', 'force_phase', 'set_priority', 'reset'}
+VALID_DIRECTIONS = {'WE', 'EW'}
 
 
 def load_results(path: Path = RESULTS_CSV) -> pd.DataFrame:
@@ -50,23 +53,35 @@ def is_structurally_valid(tool_call_json: Any) -> bool | None:
         return None
 
     name = tc.get('name')
-    inp = tc.get('input', {})
+    inp  = tc.get('input', {})
 
-    if name != 'traffic_override':
-        return False
+    if name == 'traffic_override':
+        action    = inp.get('action')
+        direction = inp.get('direction')
+        duration  = inp.get('duration_ms')
+        if action not in VALID_ACTIONS:
+            return False
+        if action != 'reset' and direction not in VALID_DIRECTIONS:
+            return False
+        if duration is not None:
+            if not isinstance(duration, (int, float)):
+                return False
+            if not (1000 <= duration <= 20000):
+                return False
+        return True
 
-    action = inp.get('action')
-    direction = inp.get('direction')
-    duration = inp.get('duration_ms')
+    if name == 'emergency_priority':
+        direction = inp.get('direction')
+        eta_s     = inp.get('eta_seconds')
+        if direction not in VALID_DIRECTIONS:
+            return False
+        if eta_s is None or not isinstance(eta_s, (int, float)):
+            return False
+        if not (5 <= eta_s <= 30):
+            return False
+        return True
 
-    if action not in ('extend_green', 'force_green', 'hold_green', 'reset'):
-        return False
-    if direction not in ('WE', 'EW'):
-        return False
-    if not isinstance(duration, (int, float)) or duration <= 0:
-        return False
-
-    return True
+    return False  # unknown tool name
 
 
 def category_summary(df: pd.DataFrame) -> pd.DataFrame:

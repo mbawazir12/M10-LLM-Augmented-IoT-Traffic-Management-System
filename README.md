@@ -12,15 +12,18 @@ firmware/
 
 backend/
   bridge.py               Python bridge: MQTT client + Claude tool-use + FastAPI server
-model.py                 Evaluation script derived from notebooks
-tests/test_model.py      Unit test for the notebook-derived model script
 
 frontend/
   dashboard.html          Live dashboard with signal cards and chat panel
 
+models/
+  model.py                Evaluation helper module (importable functions from the notebook)
+
+tests/
+  test_model.py           Unit tests for models/model.py
+
 requirements.txt          Python dependencies
 .env.example              Copy to .env and fill in your API key
-CLAUDE.md                 Developer reference for Claude Code
 ```
 
 ---

@@ -1,7 +1,9 @@
+import sys
 import unittest
 from pathlib import Path
 
-import model
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import models.model as model
 
 
 class ModelScriptTests(unittest.TestCase):
